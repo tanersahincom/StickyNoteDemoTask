@@ -129,16 +129,16 @@ namespace StickyNote
             }
             timer1.Interval = 1;
             timer1.Start();
-            _menu.MenuItems.Add(0, new MenuItem("Add Note", AddNote));
-            _menu.MenuItems.Add(1, new MenuItem("Font Color", ColorBoxForeground));
-            _menu.MenuItems.Add(2, new MenuItem("Font Type", PenProperties));
-            _menu.MenuItems.Add(3, new MenuItem("Page Design", ColorBoxBackground));
-            _menu.MenuItems.Add(4, new MenuItem("Remove Note", Delete));
+            LoadMenuItems();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            try { File.WriteAllText(@"C:\\YapiskanNot\\" + Text + "\\not", richTextBox1.Text); } catch { Application.ExitThread(); }
+            try
+            {
+                File.WriteAllText(@"C:\\YapiskanNot\\" + Text + "\\not", richTextBox1.Text);
+            }
+            catch { Application.ExitThread(); }
             richTextBox1.Width = Width; richTextBox1.Height = Height;
             var x = Location.X.ToString();
             var y = Location.Y.ToString();
@@ -214,6 +214,15 @@ namespace StickyNote
         private void Pages_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Stop();
+        }
+
+        private void LoadMenuItems()
+        {
+            _menu.MenuItems.Add(0, new MenuItem("Add Note", AddNote));
+            _menu.MenuItems.Add(1, new MenuItem("Font Color", ColorBoxForeground));
+            _menu.MenuItems.Add(2, new MenuItem("Font Type", PenProperties));
+            _menu.MenuItems.Add(3, new MenuItem("Page Design", ColorBoxBackground));
+            _menu.MenuItems.Add(4, new MenuItem("Remove Note", Delete));
         }
     }
 }
